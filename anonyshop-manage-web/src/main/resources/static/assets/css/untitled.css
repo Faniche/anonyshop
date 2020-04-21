@@ -54,7 +54,7 @@ html {
 }
 
 #addSpuDiv {
-  display: none;
+  /*display: none;*/
 }
 
 #showAttrDiv {
@@ -63,10 +63,6 @@ html {
 
 #editSpuAttr {
   /*display: none;*/
-}
-
-#editSpuDiv {
-  display: none;
 }
 
 #editSpuSaleAttr {

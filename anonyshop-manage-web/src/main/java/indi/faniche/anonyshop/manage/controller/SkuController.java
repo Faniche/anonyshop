@@ -8,9 +8,15 @@ package indi.faniche.anonyshop.manage.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @CrossOrigin
+@RequestMapping("sku")
 public class SkuController {
 
+    @RequestMapping
+    public String toSkuManage(){
+        return "skumanage";
+    }
 }

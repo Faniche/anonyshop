@@ -1,4 +1,17 @@
-// SPU销售属性
+/* 获取当前分类下的SPU列表展示 */
+$("body").on("click", ".catalog3Item", function () {
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/getSpuList",
+        type: "post",
+        data: {"catalog3Id": $("#catalog3").val()},
+        success: function (data) {
+            $("#tab-spnInfo").html(newSpuInfoTabRows(data))
+        }
+    })
+    catalog3IsChecked = true
+});
+
+// 添加SPU
 $("#btn-addSpuSaleAttr").click(function () {
     if (catalogsIsChecked()) {
         var productName = $("#in-productName").val();
@@ -40,6 +53,23 @@ $("#btn-addSpuSaleAttr").click(function () {
     }
 });
 
+// 图片上传
+$("#in-spuImg").change(function () {
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/imgUpload",
+        type: "post",
+        cache: false,
+        data: new FormData($('#form-spuUploadImg')[0]),
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            var img = "<img class=\"rounded spu_img_preview\" src=\"" + data + "\" alt=\"Something Error\" style=\"margin: 5px;height: inherit;width: auto;\">\n"
+            $("#spuPicPreview").append(img)
+            $("#spuPicPreview").show()
+        }
+    })
+})
+
 // 添加spu销售属性
 $("body").on("click", ".addSaleAttr", function () {
     var saleAttrId = $(this).parentsUntil("tr").siblings().eq(0).text()
@@ -55,26 +85,6 @@ $("body").on("click", ".addSaleAttr", function () {
         }
     })
 });
-
-// 图片上传
-$("#in-spuImg").change(function () {
-    $.ajax({
-        url: "http://seller.anonyshop.tech/spu/imgUpload",
-        type: "post",
-        cache: false,
-        data: new FormData($('#form-spuUploadImg')[0]),
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            var img = "<img class=\"rounded spu_img_preview\" src=\"" + data + "\" alt=\"Something Error\" style=\"margin: 5px;height: inherit;width: auto;\">\n"
-            $("#spuPicPreview").append(img)
-            $("#spuPicPreview").toggle()
-        }
-    })
-
-})
-
-
 
 // 删除spu销售属性
 $("body").on("click", ".deleteSaleAttr", function () {
@@ -92,7 +102,74 @@ $("body").on("click", ".deleteSaleAttr", function () {
     $(this).parentsUntil("tr").siblings().eq(3).html(spuSaleAttrValueListStr)
 });
 
-// 编辑商品销售属性
+/* 销售属性添加完成按钮 */
+$("#finAddSaleAttr").click(function () {
+    $("#from-addspu").toggle()
+    $("#tab-addSaleAttr").toggle()
+    var tableItem;
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/getSpuList",
+        type: "post",
+        data: {"catalog3Id": $("#catalog3").val()},
+        success: function (data) {
+            $("#tab-spnInfo").html(newSpuInfoTabRows(data))
+        }
+    })
+    $("#spuPicPreview").hide()
+    $("#in-productName").val("")
+    $("#in-description").val("");
+    $("#in-spuImg").val("");
+})
+
+/*====================================================================================================================*/
+/* 编辑SPU基本信息 */
+$("body").on("click", ".editSpuInfo", function () {
+    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
+    var productName = $(this).parentsUntil("tr").siblings().eq(2).text();
+    var description = $(this).parentsUntil("tr").siblings().eq(3).text();
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/editSpuInfo",
+        type: "post",
+        data: {"id": id, "productName": productName, "description": description},
+        success: function (data) {
+            alert("修改成功")
+        }
+    })
+})
+
+/* 删除SPU基本信息 */
+$("body").on("click", ".deleteSpuInfo", function () {
+    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
+    var catalog3Id = $("#catalog3").val()
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/deleteSpuInfo",
+        type: "post",
+        data: {"id": id, "catalog3Id": catalog3Id},
+        success: function (data) {
+            $("#tab-spnInfo").html(newSpuInfoTabRows(data))
+        }
+    })
+})
+
+/* SPU 基本信息(名称，描述) */
+$("body").on("click", ".btn-showEditSaleAttr", function () {
+    $("#editSpuInfo").toggle()
+    $("#editSpuSaleAttr").toggle()
+    var productName = $(this).parentsUntil("tr").siblings().eq(2).text()
+    $("#head-editSaleAttr").text(productName)
+    var spuIndex = $(this).parentsUntil("tr").siblings().eq(0).text() - 1
+    var tabItem
+    $.ajax({
+        url: "http://seller.anonyshop.tech/spu/getSpuSaleAttr",
+        type: "post",
+        data: {"spuIndex": spuIndex},
+        success: function (data) {
+            $("#editSaleAttr").html(newSpuSaleAttrValRows(data))
+        }
+    })
+});
+
+/* 编辑SPU销售属性 */
 $("body").on("click", ".editSaleAttr", function () {
     var saleAttrId = $(this).parentsUntil("tr").siblings().eq(0).text()
     var productId = $(this).parentsUntil("tr").siblings().eq(1).text()
@@ -108,52 +185,14 @@ $("body").on("click", ".editSaleAttr", function () {
     })
 });
 
-/* 销售属性添加完成按钮 */
-$("#finAddSaleAttr").click(function () {
-    $("#from-addspu").toggle()
-    $("#tab-addSaleAttr").toggle()
-    var tableItem;
-    $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuList",
-        type: "post",
-        data: {"catalog3Id": $("#catalog3").val()},
-        success: function (data) {
-            $("#tab-spnInfo").html(newSpuInfoTabRows(data))
-        }
-    })
-    $("#spuPicPreview").toggle()
-    $("#in-productName").val("")
-    $("#in-description").val("");
-    $("#in-spuImg").val("");
-})
-
 // 编辑完成按钮
 $("#finEditSaleAttr").click(function(){
-    alert("ok")
-    $("#editSpuSaleAttr").hide()
-    alert("mid")
-    $("#editSpuInfo").show()
-    alert("over")
+    changeEditSaleAttrState()
 });
 
-// 编辑SPU
-$("body").on("click", ".btn-showEditSaleAttr", function () {
-    $("#editSpuInfo").hide()
-    $("#editSpuSaleAttr").show()
-    var productName = $(this).parentsUntil("tr").siblings().eq(2).text()
-    $("#head-editSaleAttr").text(productName)
-    var spuIndex = $(this).parentsUntil("tr").siblings().eq(0).text() - 1
-    var tabItem
-    $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuSaleAttr",
-        type: "post",
-        data: {"spuIndex": spuIndex},
-        success: function (data) {
-            $("#editSaleAttr").html(newSpuSaleAttrValRows(data))
-        }
-    })
-});
-
+/*====================================================================================================================*/
+/* Common Function */
+/* 构造SPU基本信息表 */
 function newSpuInfoTabRows(data) {
     var tmp
     for (var i = 0; i < data.length; i++) {
@@ -173,6 +212,7 @@ function newSpuInfoTabRows(data) {
     return tmp;
 }
 
+/* 构造SPU销售属性表 */
 function newSpuSaleAttrValRows(data) {
     var tmp
     for (var i = 0; i < data.length; i++) {
@@ -190,36 +230,8 @@ function newSpuSaleAttrValRows(data) {
     return tmp
 }
 
+/* 切换SPU编辑状态 */
 function changeEditSaleAttrState(){
     $("#editSpuInfo").toggle()
     $("#editSpuSaleAttr").toggle()
 }
-
-// ====================================================================================================================
-// SPU
-$("body").on("click", ".editSpuInfo", function () {
-    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
-    var productName = $(this).parentsUntil("tr").siblings().eq(2).text();
-    var description = $(this).parentsUntil("tr").siblings().eq(3).text();
-    $.ajax({
-        url: "http://seller.anonyshop.tech/spu/editSpuInfo",
-        type: "post",
-        data: {"id": id, "productName": productName, "description": description},
-        success: function (data) {
-            alert("修改成功")
-        }
-    })
-})
-
-$("body").on("click", ".deleteSpuInfo", function () {
-    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
-    var catalog3Id = $("#catalog3").val()
-    $.ajax({
-        url: "http://seller.anonyshop.tech/spu/deleteSpuInfo",
-        type: "post",
-        data: {"id": id, "catalog3Id": catalog3Id},
-        success: function (data) {
-            $("#tab-spnInfo").html(newSpuInfoTabRows(data))
-        }
-    })
-})

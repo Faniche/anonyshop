@@ -1,9 +1,25 @@
 // Base Attr Operation
+$("body").on("click", ".catalog3Item", function () {
+    var tableItem;
+    $.ajax({
+        url: "http://seller.anonyshop.tech/attr/getAttrInfoList",
+        type: "post",
+        data: {"catalog3Id": $(this).val()},
+        success: function (data) {
+            $("#attrList").html(newBaseAttrRows(data))
+        }
+    })
+    catalog3IsChecked = true;
+});
+
+
 /* 添加 */
 $("#addAttrBtn").click(function () {
     if (catalogsIsChecked()) {
         if ($("#inputAttrName").val() == null) {
             alert("请输入属性！")
+        } else if ($("#inputAttrValue").val() == null) {
+            alert("请输入属性值！")
         } else {
             var catalog3Id = $("#catalog3").val()
             var attrValueListStr = $("#inputAttrValue").val();
@@ -17,7 +33,7 @@ $("#addAttrBtn").click(function () {
                     "attrValueListStr": attrValueListStr
                 },
                 success: function (data) {
-                    $("#attrList").html(newTableRows(data))
+                    $("#attrList").html(newBaseAttrRows(data))
                 }
             })
             $("#inputAttrName").val("");
@@ -26,7 +42,8 @@ $("#addAttrBtn").click(function () {
     } else {
         alert("请选择分类！")
     }
-});
+})
+;
 
 /* 删除 */
 $("body").on("click", ".deleteAttr", function () {
@@ -39,7 +56,7 @@ $("body").on("click", ".deleteAttr", function () {
             type: "post",
             data: {"id": id, "attrName": attrName, "catalog3Id": catalog3Id},
             success: function (data) {
-                $("#attrList").html(newTableRows(data))
+                $("#attrList").html(newBaseAttrRows(data))
             }
         })
     }
@@ -57,20 +74,20 @@ $("body").on("click", ".editAttr", function () {
             type: "post",
             data: {"id": id, "attrName": attrName, "catalog3Id": catalog3Id, "attrValueListStr": attrValueListStr},
             success: function (data) {
-                $("#attrList").html(newTableRows(data))
+                $("#attrList").html(newBaseAttrRows(data))
             }
         })
     }
 });
 
-function newTableRows(data) {
+function newBaseAttrRows(data) {
     var tmp
     for (var i = 0; i < data.length; i++) {
         tmp +=
             "<tr style=\"margin: 10px 0px;\">" +
             "<td style=\"padding: 6px;\">" + (i + 1) + "</td>" +
             "<td style=\"padding: 6px;\">" + data[i].id + "</td>" +
-            "<td class=\"d-lg-flex align-items-lg-center\" style=\"padding: 6px;\" contenteditable=\"true\">" + data[i].attrName + "</td>" +
+            "<td style=\"padding: 6px;\" contenteditable=\"true\">" + data[i].attrName + "</td>" +
             "<td class=\"attrValueListStr\" style=\"padding: 6px;\" contenteditable=\"true\">" + data[i].attrValueListStr + "</td>" +
             "<td style=\"padding: 0px;\"><div class=\"btn-group\" role=\"group\">\n" +
             "<button class=\"btn btn-info editAttr\" type=\"button\">修改</button>\n" +

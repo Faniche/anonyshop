@@ -7,6 +7,7 @@ package indi.faniche.anonyshop.manage.controller;
  */
 
 import com.alibaba.dubbo.config.annotation.Reference;
+//import com.github.pagehelper.PageHelper;
 import indi.faniche.anonyshop.bean.baseattr.PmsBaseSaleAttr;
 import indi.faniche.anonyshop.bean.spu.PmsProductImage;
 import indi.faniche.anonyshop.bean.spu.PmsProductInfo;
@@ -40,9 +41,15 @@ public class SpuController {
     @Reference
     ProductImageService productImageService;
 
+    @RequestMapping
+    public String toSpuManage(){
+        return "spumanage";
+    }
+
     @RequestMapping("getSpuList")
     @ResponseBody
     public List<PmsProductInfo> getSpuList(HttpSession session, String catalog3Id) {
+//        PageHelper.startPage()
         List<PmsProductInfo> pmsProductInfoList = spuService.getSpuList(catalog3Id);
         session.setAttribute("pmsProductInfoList", pmsProductInfoList);
         return pmsProductInfoList;

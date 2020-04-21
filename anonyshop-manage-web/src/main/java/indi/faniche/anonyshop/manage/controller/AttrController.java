@@ -26,6 +26,11 @@ public class AttrController {
     @Reference
     AttrService attrService;
 
+    @RequestMapping
+    public String toBaseAttrManage(){
+        return "baseattrmanage";
+    }
+
     /* 获取基本销售属性 */
     @RequestMapping("baseSaleAttrList")
     @ResponseBody
