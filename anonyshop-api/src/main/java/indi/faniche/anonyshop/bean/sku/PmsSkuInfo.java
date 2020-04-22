@@ -3,7 +3,9 @@ package indi.faniche.anonyshop.bean.sku;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @File: PmsSkuInfo
@@ -33,6 +35,13 @@ public class PmsSkuInfo implements Serializable {
     private String catalog3Id;
     
     private String skuDefaultImg;
+
+    @Transient
+    List<PmsSkuImage> skuImageList;
+    @Transient
+    List<PmsSkuAttrValue> skuAttrValueList;
+    @Transient
+    List<PmsSkuSaleAttrValue> skuSaleAttrValueList;
     
 
     public String getId() {
@@ -107,4 +116,27 @@ public class PmsSkuInfo implements Serializable {
         this.skuDefaultImg = skuDefaultImg;
     }
 
+    public List<PmsSkuImage> getSkuImageList() {
+        return skuImageList;
+    }
+
+    public void setSkuImageList(List<PmsSkuImage> skuImageList) {
+        this.skuImageList = skuImageList;
+    }
+
+    public List<PmsSkuAttrValue> getSkuAttrValueList() {
+        return skuAttrValueList;
+    }
+
+    public void setSkuAttrValueList(List<PmsSkuAttrValue> skuAttrValueList) {
+        this.skuAttrValueList = skuAttrValueList;
+    }
+
+    public List<PmsSkuSaleAttrValue> getSkuSaleAttrValueList() {
+        return skuSaleAttrValueList;
+    }
+
+    public void setSkuSaleAttrValueList(List<PmsSkuSaleAttrValue> skuSaleAttrValueList) {
+        this.skuSaleAttrValueList = skuSaleAttrValueList;
+    }
 }
