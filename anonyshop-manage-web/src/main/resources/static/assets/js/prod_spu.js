@@ -158,7 +158,6 @@ $("body").on("click", ".btn-showEditSaleAttr", function () {
     var productName = $(this).parentsUntil("tr").siblings().eq(2).text()
     $("#head-editSaleAttr").text(productName)
     var spuIndex = $(this).parentsUntil("tr").siblings().eq(0).text() - 1
-    var tabItem
     $.ajax({
         url: "http://seller.anonyshop.tech/spu/getSpuSaleAttr",
         type: "post",

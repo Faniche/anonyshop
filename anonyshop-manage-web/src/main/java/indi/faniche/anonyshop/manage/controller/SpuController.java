@@ -129,4 +129,21 @@ public class SpuController {
         session.setAttribute("pmsProductImageList", pmsProductImageList);
         return imgUrl;
     }
+
+    /*================================================================================================================*/
+    /* SKU 页面 */
+    @RequestMapping("imageList")
+    @ResponseBody
+    public List<PmsProductImage> imageList(String productId){
+
+        List<PmsProductImage> pmsProductImages = spuService.spuImageList(productId);
+        return pmsProductImages;
+    }
+
+    @RequestMapping("saleAttrList")
+    @ResponseBody
+    public List<PmsProductSaleAttr> saleAttrList(String spuId){
+        List<PmsProductSaleAttr> pmsProductSaleAttrs = spuService.spuSaleAttrList(spuId);
+        return pmsProductSaleAttrs;
+    }
 }
