@@ -22,13 +22,13 @@ public class PmsSkuInfo implements Serializable {
     
     private String productId;
     
-    private Object price;
+    private double price;
     
     private String skuName;
     
     private String skuDesc;
     
-    private Object weight;
+    private String weight;
     
     private String tmId;
     
@@ -60,11 +60,11 @@ public class PmsSkuInfo implements Serializable {
         this.productId = productId;
     }
 
-    public Object getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Object price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -84,11 +84,11 @@ public class PmsSkuInfo implements Serializable {
         this.skuDesc = skuDesc;
     }
 
-    public Object getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Object weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
