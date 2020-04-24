@@ -55,7 +55,7 @@ public class SpuController {
         return pmsProductInfoList;
     }
 
-    /* 编辑spu销售属性，先获取spu销售属性值 */
+    /* 编辑spu销售属性，先获取spu销售属性值, 包括空的销售属性 */
     @RequestMapping("getSpuSaleAttr")
     @ResponseBody
     public List<PmsProductSaleAttr> getSpuSaleAttr(HttpSession session, String spuIndex) {
@@ -80,6 +80,17 @@ public class SpuController {
                 productSaleAttrList.add(tmp);
             }
         }
+        return productSaleAttrList;
+    }
+
+    /* 编辑spu销售属性，先获取spu销售属性值, 不包括空的销售属性 */
+    @RequestMapping("getSpuSaleAttrNoNull")
+    @ResponseBody
+    public List<PmsProductSaleAttr> getSpuSaleAttrNoNull(HttpSession session, String spuIndex) {
+        Integer index = Integer.valueOf(spuIndex);
+        List<PmsProductInfo> pmsProductInfoList = (List<PmsProductInfo>) session.getAttribute("pmsProductInfoList");
+        PmsProductInfo pmsProductInfo = pmsProductInfoList.get(index);
+        List<PmsProductSaleAttr> productSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
         return productSaleAttrList;
     }
 
@@ -112,23 +123,7 @@ public class SpuController {
         return getSpuList(session, pmsProductInfo.getCatalog3Id());
     }
 
-    @RequestMapping("imgUpload")
-    @ResponseBody
-    public String imgUpload(@RequestParam("imgName") MultipartFile multipartFile, HttpSession session){
-        // 将图片或者音视频上传到分布式的文件存储系统
-        // 将图片的存储路径返回给页面
-        String imgUrl = PmsUploadUtil.uploadImage(multipartFile);
-        List<PmsProductImage> pmsProductImageList = (List<PmsProductImage>) session.getAttribute("pmsProductImageList");
-        if (pmsProductImageList == null) {
-            pmsProductImageList = new ArrayList<>();
-        }
-        PmsProductImage pmsProductImage = new PmsProductImage();
-        pmsProductImage.setImgUrl(imgUrl);
-        pmsProductImage.setImgName(multipartFile.getOriginalFilename());
-        pmsProductImageList.add(pmsProductImage);
-        session.setAttribute("pmsProductImageList", pmsProductImageList);
-        return imgUrl;
-    }
+
 
     /*================================================================================================================*/
     /* SKU 页面 */

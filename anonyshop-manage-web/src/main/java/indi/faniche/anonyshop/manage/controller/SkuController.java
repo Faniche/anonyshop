@@ -7,6 +7,7 @@ package indi.faniche.anonyshop.manage.controller;
  */
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSONObject;
 import indi.faniche.anonyshop.bean.sku.PmsSkuInfo;
 import indi.faniche.anonyshop.service.SkuService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,16 +32,31 @@ public class SkuController {
 
     @RequestMapping("saveSkuInfo")
     @ResponseBody
-    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
-        // 使用隐藏域传递productid
-//        pmsSkuInfo.setProductId(pmsSkuInfo.getSpuId());
-
+    public Msg saveSkuInfo(PmsSkuInfo pmsSkuInfo){
         // 处理默认图片
         String skuDefaultImg = pmsSkuInfo.getSkuDefaultImg();
         if(StringUtils.isBlank(skuDefaultImg)){
             pmsSkuInfo.setSkuDefaultImg(pmsSkuInfo.getSkuImageList().get(0).getImgUrl());
+            pmsSkuInfo.getSkuImageList().get(0).setIsDefault("true");
         }
-        // skuService.saveSkuInfo(pmsSkuInfo);
-        return "success";
+        skuService.saveSkuInfo(pmsSkuInfo);
+        Msg msg = new Msg("seccess");
+        return msg;
+    }
+
+    private static final class Msg{
+        private String msg;
+
+        public Msg(String msg) {
+            this.msg = msg;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
     }
 }

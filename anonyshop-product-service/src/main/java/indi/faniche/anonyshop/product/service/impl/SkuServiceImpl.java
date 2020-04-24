@@ -38,19 +38,23 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public void saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
         // 插入skuInfo
-        int i = pmsSkuInfoMapper.insertSelective(pmsSkuInfo);
+        pmsSkuInfoMapper.insertSelective(pmsSkuInfo);
         String skuId = pmsSkuInfo.getId();
         // 插入平台属性关联
         List<PmsSkuAttrValue> skuAttrValueList = pmsSkuInfo.getSkuAttrValueList();
         for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
-            pmsSkuAttrValue.setSkuId(skuId);
-            pmsSkuAttrValueMapper.insertSelective(pmsSkuAttrValue);
+            if (pmsSkuAttrValue.getAttrId() != null){
+                pmsSkuAttrValue.setSkuId(skuId);
+                pmsSkuAttrValueMapper.insertSelective(pmsSkuAttrValue);
+            }
         }
         // 插入销售属性关联
         List<PmsSkuSaleAttrValue> skuSaleAttrValueList = pmsSkuInfo.getSkuSaleAttrValueList();
         for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuSaleAttrValueList) {
-            pmsSkuSaleAttrValue.setSkuId(skuId);
-            pmsSkuSaleAttrValueMapper.insertSelective(pmsSkuSaleAttrValue);
+            if (pmsSkuSaleAttrValue.getSaleAttrId() != null){
+                pmsSkuSaleAttrValue.setSkuId(skuId);
+                pmsSkuSaleAttrValueMapper.insertSelective(pmsSkuSaleAttrValue);
+            }
         }
         // 插入图片信息
         List<PmsSkuImage> skuImageList = pmsSkuInfo.getSkuImageList();

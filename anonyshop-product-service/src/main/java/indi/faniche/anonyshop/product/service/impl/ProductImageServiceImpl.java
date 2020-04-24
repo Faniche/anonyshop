@@ -12,6 +12,8 @@ import indi.faniche.anonyshop.product.mapper.PmsProductImageMapper;
 import indi.faniche.anonyshop.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class ProductImageServiceImpl implements ProductImageService {
 
@@ -21,5 +23,12 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public void saveImage(PmsProductImage productImage) {
         pmsProductImageMapper.insert(productImage);
+    }
+
+    @Override
+    public List<PmsProductImage> getImgListBySpuId(String productId) {
+        PmsProductImage pmsProductImage = new PmsProductImage();
+        pmsProductImage.setProductId(productId);
+        return pmsProductImageMapper.select(pmsProductImage);
     }
 }
