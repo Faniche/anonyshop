@@ -36,11 +36,12 @@ public class UmsDefaultAddressServiceImpl implements UmsDefaultAddressService {
         return addressMapper.deleteByExample(example);
     }
 
-    /*未完！！！！！！！！！！！！！！！！！！！！！！！！！*/
     @Override
-    public int modifyDefaultAddress(UmsDefaultAddress defaultAddress) {
+    public UmsDefaultAddress modifyDefaultAddress(UmsDefaultAddress defaultAddress) {
         Example example = new Example(UmsDefaultAddress.class);
-        example.createCriteria().andEqualTo("");
-        return addressMapper.updateByExample(defaultAddress, null);
+        example.createCriteria().andEqualTo("loginId", defaultAddress.getLoginId());
+        addressMapper.deleteByExample(example);
+        addressMapper.insertSelective(defaultAddress);
+        return defaultAddress;
     }
 }

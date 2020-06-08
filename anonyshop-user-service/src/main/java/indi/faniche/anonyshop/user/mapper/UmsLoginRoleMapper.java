@@ -1,6 +1,7 @@
 package indi.faniche.anonyshop.user.mapper;
 
 import indi.faniche.anonyshop.bean.user.UmsInfo;
+import indi.faniche.anonyshop.bean.user.UmsLoginRole;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -9,4 +10,4 @@ import tk.mybatis.mapper.common.Mapper;
  * @since: 2020-04-03 18:44:03
  */
 
-public interface UmsLoginRoleMapper extends Mapper<UmsInfo> {}
+public interface UmsLoginRoleMapper extends Mapper<UmsLoginRole> {}
