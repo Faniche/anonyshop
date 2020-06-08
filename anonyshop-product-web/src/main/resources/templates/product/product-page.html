@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Product - Item</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="../assets/css/smoothproducts.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="http://anonyshop.tech/index">Anonyshop</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <form class="form-inline" style="margin: 0px 0px 0px 80px;" action="http://search.anonyshop.tech/list" method="get">
+                    <div class="form-group"><input class="form-control" type="search" name="keys"><button class="btn btn-info" type="submit" style="padding: 6px 20px;"><i class="fa fa-search" style="margin: 0px;"></i></button></div>
+                </form>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://anonyshop.tech/index" style="font-size: 15px;">首页</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://cart.anonyshop.tech" style="font-size: 15px;">购物车</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://search.anonyshop.tech" style="font-size: 15px;">商品分类</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username==null}"><a class="nav-link" href="http://passport.anonyshop.tech" style="font-size: 15px;">登录</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username!=null}"><a class="nav-link" href="http://manage.anonyshop.tech" style="font-size: 15px;">个人中心</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username!=null}"><a class="nav-link" th:href="'http://passport.anonyshop.tech/logout?userId='+${userId}" style="font-size: 15px;">退出</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <main class="page product-page">
+        <section class="clean-block clean-product dark">
+            <div class="container">
+                <div class="block-heading" style="padding: 40px 0px 0px;">
+                    <h2 class="text-info" th:text="${skuInfo.smsStore.name}">商品详情</h2>
+                </div>
+                <div class="block-content">
+                    <div class="product-info">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="gallery">
+                                    <div class="sp-wrap">
+                                        <a th:href="${skuInfo.skuDefaultImg}">
+                                            <img class="img-fluid d-block mx-auto" th:src="${skuInfo.skuDefaultImg}">
+                                        </a>
+                                        <a th:href="${skuImage.imgUrl}" th:each="skuImage:${skuInfo?.skuImageList}">
+                                            <img class="img-fluid d-block mx-auto" th:src="${skuImage.imgUrl}">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <h3 th:text="${skuInfo?.skuName}">Google Pixel3</h3>
+                                    <h4 th:text="'￥'+${skuInfo?.price}">￥2000</h4>
+                                    <div class="rating">
+                                        <div><label style="margin: 8px 15px 0px 0px;">评分: </label><label style="margin: 8px 15px 0px 0px;" th:text="${productScore}"></label></div></div>
+                                    <div>
+                                        <div>
+                                            <label style="margin: 8px 15px 8px 0;">库存: </label><span th:if="${skuInfo?.quantity!='0'}">有货</span><span th:if="${skuInfo?.quantity=='0'}">无货</span>
+<!--                                            <label style="margin: 13px 15px 13px 0px;" th:text="'还剩'+${skuInfo?.quantity}+'台'"></label>-->
+                                        </div>
+                                        <div><label style="margin: 8px 15px 0px 0;">重量: </label><label style="margin: 8px 15px 0px 0;" th:text="${skuInfo?.weight}+' kg'">1 kg</label></div>
+                                    </div>
+                                    <hr>
+                                    <div style="height: auto;margin: 0px 0px 10px 0px;">
+                                        <div class="box-attr-2" th:each="spuSaleAttr:${spuSaleAttrListCheckBySku}"><label style="margin: 13px 15px 13px 0px;" th:text="${spuSaleAttr.saleAttrName}">颜色</label>
+                                            <div class="btn-group" role="group"><button class="btn btn-light" type="button" style="margin: 5px 7px 5px 0px;height: 32px;padding: 4px 4px;" th:each="saleAttrValue:${spuSaleAttr.spuSaleAttrValueList}" th:class="${saleAttrValue.isChecked}=='1'?'btn-success btn rounded':'btn btn-light rounded'"><label th:text="${saleAttrValue.saleAttrValueName}" th:value="${saleAttrValue.id}" style="margin: 0px 0px 4px;">白色</label></button></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <form id="itemForm" action="http://cart.anonyshop.tech/addToCart" method="post" style="margin: 0px 0px 10px;">
+                                            <div class="d-inline-flex"><input class="form-control" type="text" id="item-quantity" name="quantity" value="1" style="width: 70px;height: 50px;"><input class="form-control" type="hidden" name="skuId" th:value="${skuInfo?.id}">
+                                                <div class="text-light">
+                                                    <div class="btn-group-vertical" role="group"><button class="btn btn-light" id="itemQuantityAdd" type="button" style="margin: 0px;height: 25px;padding: 1px 1px;"><i class="fas fa-plus" style="margin: 0px;"></i></button><button class="btn btn-light d-lg-flex"
+                                                                                                                                                                                                                                                                                      id="itemQuantityMinus" type="button" style="margin: 0px;height: 25px;padding: 4px;"><i class="fa fa-minus d-lg-flex" style="margin: 0px;"></i></button></div>
+                                                </div>
+                                            </div>
+                                        </form><button class="btn btn-primary" type="button" canclick="1" onclick="addToCart(this)"><i class="icon-basket"></i>加入购物车</button></div>
+                                    <div class="summary">
+                                        <p th:text="${skuInfo?.skuDesc}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. Vestibulum dignissim
+                                            eu nulla eu imperdiet. Morbi mollis tellus a nunc vestibulum consequat. Quisque tristique elit et nibh dapibus sodales. Nam sollicitudin a urna sed iaculis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" id="description-tab" href="#description">商品描述</a></li>
+<!--                                <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" id="specifications-tabs" href="#specifications">规格</a></li>-->
+                                <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" id="reviews-tab" href="#reviews">评论</a></li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane active fade show description" role="tabpanel" id="description">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing
+                                        elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <figure class="figure"><img class="img-fluid figure-img" src="http://121.36.66.5/group1/M00/00/00/wKgAUV6iSRaAFGtlAAPCVIHwBgU494.jpg"></figure>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h4>Lorem Ipsum</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7 right">
+                                            <h4>Lorem Ipsum</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <figure class="figure"><img class="img-fluid figure-img" src="http://121.36.66.5/group1/M00/00/00/wKgAUV6iSTOADQUeAAM7IGdat_0279.jpg"></figure>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="tab-pane fade show specifications" role="tabpanel" id="specifications">-->
+<!--                                    <div class="table-responsive table-bordered">-->
+<!--                                        <table class="table table-bordered">-->
+<!--                                            <tbody>-->
+<!--                                            <tr>-->
+<!--                                                <td class="stat">屏幕尺寸</td>-->
+<!--                                                <td>5.5"</td>-->
+<!--                                            </tr>-->
+<!--                                            <tr>-->
+<!--                                                <td class="stat">相机</td>-->
+<!--                                                <td>12MP</td>-->
+<!--                                            </tr>-->
+<!--                                            <tr>-->
+<!--                                                <td class="stat">内存</td>-->
+<!--                                                <td>4GB</td>-->
+<!--                                            </tr>-->
+<!--                                            <tr>-->
+<!--                                                <td class="stat">系统</td>-->
+<!--                                                <td>Android 11</td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="tab-pane fade show" role="tabpanel" id="reviews">
+                                    <div th:if="${comments.isEmpty()}">
+                                        <div class="reviews" >
+                                            <div class="review-item">
+                                                <p>该商品暂无评论</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reviews" th:each="comment: ${comments}">
+                                        <div class="review-item">
+                                            <div class="rating">
+                                                <img th:each="star: ${comment.starArray}" src="../assets/img/star.svg">
+                                                <img th:each="star: ${comment.emptyStarArray}" src="../assets/img/star-empty.svg"></div>
+                                            <h4 th:text="${comment.productName}"></h4>
+                                            <span class="text-muted" th:text="${comment.productAttribute}"></span><br>
+                                            <span class="text-muted" th:text="${comment.memberNickName}+'   '+${comment.createTime.toInstant().toString().substring(0, 10)}"></span>
+                                            <p th:text="${comment.content}"></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Start: Footer Dark -->
+    <footer class="page-footer dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>开始</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/index">首页</a></li>
+                        <li><a href="http://user.anonyshop.tech/signup">注册</a></li>
+                        <li><a href="http://user.anonyshop.tech/#">下载</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>关于我们</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/info">平台信息</a></li>
+                        <li><a href="http://anonyshop.tech/contact">联系我们</a></li>
+                        <li><a href="http://anonyshop.tech/reviews">评论</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>支持</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/faq">FAQ</a></li>
+                        <li><a href="http://anonyshop.tech/support">帮助中心</a></li>
+                        <li><a href="http://anonyshop.tech/forum">论坛</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5><strong>法律</strong></h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/termsofservice">服务条款</a></li>
+                        <li><a href="http://anonyshop.tech/termsofusage">使用条款</a></li>
+                        <li><a href="http://anonyshop.tech/privacypolicy">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2020 Copyright Text</p>
+        </div>
+    </footer>
+    <!-- End: Footer Dark -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/smoothproducts.min.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/baguetteBox.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../assets/js/product/item.js"></script>
+</body>
+
+</html>

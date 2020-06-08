@@ -1,0 +1,2 @@
+rm -r /home/faniche/IdeaProjects/anonyshop/anonyshop-procuct-web/src/main/resources/static/assets
+mv /home/faniche/IdeaProjects/anonyshop/anonyshop-procuct-web/src/main/resources/templates/assets /home/faniche/IdeaProjects/anonyshop/anonyshop-procuct-web/src/main/resources/static
