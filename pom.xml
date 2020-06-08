@@ -3,10 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>indi.faniche.anonyshop</groupId>
     <artifactId>anonyshop-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
     <modules>
         <module>anonyshop-api</module>
         <module>anonyshop-util-common</module>
@@ -17,8 +20,23 @@
         <module>anonyshop-user-web</module>
         <module>anonyshop-manage-web</module>
         <module>anonyshop-product-service</module>
+        <module>anonyshop-product-web</module>
+        <module>anonyshop-search-service</module>
+        <module>anonyshop-search-web</module>
+        <module>anonyshop-cart-service</module>
+        <module>anonyshop-cart-web</module>
+        <module>anonyshop-passport-web</module>
+        <module>anonyshop-order-service</module>
+        <module>anonyshop-order-web</module>
 
+        <module>anonyshop-web-test</module>
+        <module>anonyshop-redission-test</module>
 
+        <module>anonyshop-store-service</module>
+
+        <module>anonyshop-payment</module>
+        <module>anonyshop-chat-service</module>
+        <module>anonyshop-ware-service</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -34,18 +52,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-
         <fastjson.version>1.2.68</fastjson.version>
-
-        <!--        <dubbo-starter.version>1.0.10</dubbo-starter.version>-->
-        <!--        <dubbo.version>2.6.0</dubbo.version>-->
-        <!--        <zkclient.version>0.10</zkclient.version>-->
-        <!--        全部换成最新版后与spring boot parent， service没有错误,web有错误-->
         <dubbo-starter.version>1.1.3</dubbo-starter.version>
         <dubbo.version>2.6.8</dubbo.version>
         <zkclient.version>0.11</zkclient.version>
-
-
         <mybatis.version>2.1.2</mybatis.version>
         <nekohtml.version>1.9.22</nekohtml.version>
         <xml-apis.version>1.4.01</xml-apis.version>
@@ -54,13 +64,16 @@
         <httpclient.version>4.5.5</httpclient.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <mapper-starter.version>2.1.5</mapper-starter.version>
-        <jedis.version>3.2.0</jedis.version>
+        <jedis.version>2.9.0</jedis.version>
         <jest.version>6.3.1</jest.version>
         <jna.version>5.5.0</jna.version>
         <beanUtils.version>1.9.4</beanUtils.version>
         <fastdfs-client-java.version>1.27-SNAPSHOT</fastdfs-client-java.version>
-        <pagehelper.version>4.1.1</pagehelper.version>
-<!--        <pagehelper.version>1.2.5</pagehelper.version>-->
+<!--        <pagehelper.version>4.1.1</pagehelper.version>-->
+        <redisson.version>3.10.5</redisson.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <activemq-pool.version>5.15.12</activemq-pool.version>
+        <mail.version>1.5.0-b01</mail.version>
     </properties>
 
     <dependencyManagement>
@@ -160,11 +173,25 @@
 <!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
 <!--                <version>${pagehelper.version}</version>-->
 <!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.github.pagehelper</groupId>-->
+<!--                <artifactId>pagehelper</artifactId>-->
+<!--                <version>${pagehelper.version}</version>-->
+<!--            </dependency>-->
+
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
             <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>${pagehelper.version}</version>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
