@@ -9,6 +9,10 @@
     </parent>
 
     <artifactId>anonyshop-product-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>anonyshop-product-service</name>
+    <description>Demo project for Spring Boot</description>
+
     <dependencies>
         <dependency>
             <groupId>indi.faniche.anonyshop</groupId>

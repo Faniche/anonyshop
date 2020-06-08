@@ -9,9 +9,11 @@ import com.alibaba.dubbo.config.annotation.Service;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog1;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog2;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog3;
+import indi.faniche.anonyshop.bean.catalog.PmsBrand;
 import indi.faniche.anonyshop.product.mapper.PmsBaseCatalog1Mapper;
 import indi.faniche.anonyshop.product.mapper.PmsBaseCatalog2Mapper;
 import indi.faniche.anonyshop.product.mapper.PmsBaseCatalog3Mapper;
+import indi.faniche.anonyshop.product.mapper.PmsBrandMapper;
 import indi.faniche.anonyshop.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,6 +30,9 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
     PmsBaseCatalog3Mapper pmsBaseCatalog3Mapper;
+
+    @Autowired
+    PmsBrandMapper pmsBrandMapper;
 
     @Override
     public List<PmsBaseCatalog1> getCatalog1() {
@@ -46,5 +51,12 @@ public class CatalogServiceImpl implements CatalogService {
         PmsBaseCatalog3 pmsBaseCatalog3 = new PmsBaseCatalog3();
         pmsBaseCatalog3.setCatalog2Id(catalog2Id);
         return pmsBaseCatalog3Mapper.select(pmsBaseCatalog3);
+    }
+
+    @Override
+    public List<PmsBrand> getBrandList(String catalog3Id) {
+        PmsBrand brand = new PmsBrand();
+        brand.setCatalog3Id(catalog3Id);
+        return pmsBrandMapper.select(brand);
     }
 }
