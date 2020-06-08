@@ -3,7 +3,9 @@ package indi.faniche.anonyshop.bean.sku;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @File: PmsSkuAttrValue
@@ -23,7 +25,9 @@ public class PmsSkuAttrValue implements Serializable {
     private String valueId;
     
     private String skuId;
-    
+
+    @Transient
+    private List<String> valueIdList;
 
     public String getId() {
         return id;
@@ -55,6 +59,14 @@ public class PmsSkuAttrValue implements Serializable {
 
     public void setSkuId(String skuId) {
         this.skuId = skuId;
+    }
+
+    public List<String> getValueIdList() {
+        return valueIdList;
+    }
+
+    public void setValueIdList(List<String> valueIdList) {
+        this.valueIdList = valueIdList;
     }
 
 }

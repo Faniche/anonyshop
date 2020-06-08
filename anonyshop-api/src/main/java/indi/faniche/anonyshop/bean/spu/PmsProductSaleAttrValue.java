@@ -25,6 +25,7 @@ public class PmsProductSaleAttrValue implements Serializable {
     
     private String saleAttrValueName;
 
+    /* 通过他的属性判断展示在item页默认选中的商品 */
     @Transient
     private String isChecked;
 

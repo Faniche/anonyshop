@@ -9,6 +9,6 @@ public interface UmsDefaultAddressService {
 
     int delDefaultAddressByLoginId(String loginId);
 
-    int modifyDefaultAddress(UmsDefaultAddress defaultAddress);
+    UmsDefaultAddress modifyDefaultAddress(UmsDefaultAddress defaultAddress);
 
 }

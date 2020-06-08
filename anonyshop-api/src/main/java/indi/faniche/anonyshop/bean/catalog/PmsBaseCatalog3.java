@@ -3,7 +3,9 @@ package indi.faniche.anonyshop.bean.catalog;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @File: PmsBaseCatalog3
@@ -21,7 +23,9 @@ public class PmsBaseCatalog3 implements Serializable {
     private String name;
     
     private String catalog2Id;
-    
+
+    @Transient
+    private List<PmsBrand> brandList;
 
     public String getId() {
         return id;
@@ -47,4 +51,11 @@ public class PmsBaseCatalog3 implements Serializable {
         this.catalog2Id = catalog2Id;
     }
 
+    public List<PmsBrand> getBrandList() {
+        return brandList;
+    }
+
+    public void setBrandList(List<PmsBrand> brandList) {
+        this.brandList = brandList;
+    }
 }

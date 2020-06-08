@@ -1,10 +1,13 @@
 package indi.faniche.anonyshop.bean.sku;
 
+import indi.faniche.anonyshop.bean.store.SmsStore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,19 +25,26 @@ public class PmsSkuInfo implements Serializable {
     
     private String productId;
     
-    private double price;
+    private BigDecimal price;
     
     private String skuName;
     
     private String skuDesc;
     
     private String weight;
-    
-    private String tmId;
+
+    private String brandId;
     
     private String catalog3Id;
     
     private String skuDefaultImg;
+
+    private String storeId;
+
+    private String quantity;
+
+    @Transient
+    private SmsStore smsStore;
 
     @Transient
     List<PmsSkuImage> skuImageList;
@@ -60,11 +70,11 @@ public class PmsSkuInfo implements Serializable {
         this.productId = productId;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -92,12 +102,12 @@ public class PmsSkuInfo implements Serializable {
         this.weight = weight;
     }
 
-    public String getTmId() {
-        return tmId;
+    public String getBrandId() {
+        return brandId;
     }
 
-    public void setTmId(String tmId) {
-        this.tmId = tmId;
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
     }
 
     public String getCatalog3Id() {
@@ -114,6 +124,22 @@ public class PmsSkuInfo implements Serializable {
 
     public void setSkuDefaultImg(String skuDefaultImg) {
         this.skuDefaultImg = skuDefaultImg;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public SmsStore getSmsStore() {
+        return smsStore;
+    }
+
+    public void setSmsStore(SmsStore smsStore) {
+        this.smsStore = smsStore;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     public List<PmsSkuImage> getSkuImageList() {
@@ -138,5 +164,13 @@ public class PmsSkuInfo implements Serializable {
 
     public void setSkuSaleAttrValueList(List<PmsSkuSaleAttrValue> skuSaleAttrValueList) {
         this.skuSaleAttrValueList = skuSaleAttrValueList;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

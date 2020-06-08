@@ -3,6 +3,7 @@ package indi.faniche.anonyshop.bean.user;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -25,7 +26,11 @@ public class UmsLogin implements Serializable {
     private String email;
     
     private String publicKey;
-    
+
+    private String status;
+
+    @Transient
+    private String roleId;
 
     public String getId() {
         return id;
@@ -67,4 +72,19 @@ public class UmsLogin implements Serializable {
         this.publicKey = publicKey;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 }
