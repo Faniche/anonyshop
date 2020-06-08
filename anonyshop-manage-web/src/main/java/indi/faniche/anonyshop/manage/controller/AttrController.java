@@ -7,15 +7,18 @@ package indi.faniche.anonyshop.manage.controller;
  */
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import indi.faniche.anonyshop.annotations.LoginRequired;
 import indi.faniche.anonyshop.bean.baseattr.PmsBaseAttrInfo;
 import indi.faniche.anonyshop.bean.baseattr.PmsBaseSaleAttr;
 import indi.faniche.anonyshop.bean.spu.PmsProductSaleAttr;
 import indi.faniche.anonyshop.service.AttrService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -27,15 +30,15 @@ public class AttrController {
     AttrService attrService;
 
     @RequestMapping
-    public String toBaseAttrManage(){
-        return "baseattrmanage";
-    }
-
-    /* 获取基本销售属性 */
-    @RequestMapping("baseSaleAttrList")
-    @ResponseBody
-    public List<PmsBaseSaleAttr> baseSaleAttrList(){
-        return attrService.baseSaleAttrList();
+    @LoginRequired
+    public String toBaseAttrManage(HttpServletRequest request, Model model){
+        String username = (String) request.getAttribute("username");
+        String userId = (String) request.getAttribute("userId");
+        String roleId = (String) request.getAttribute("roleId");
+        model.addAttribute("username", username);
+        model.addAttribute("userId", userId);
+        model.addAttribute("roleId", roleId);
+        return "admin/baseattrmanage";
     }
 
     /* 获取三级分类下的平台属性 */
@@ -67,6 +70,13 @@ public class AttrController {
     public List<PmsBaseAttrInfo> editAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo){
         attrService.editAttrInfo(pmsBaseAttrInfo);
         return attrService.getAttrInfoList(pmsBaseAttrInfo.getCatalog3Id());
+    }
+
+    /* 获取基本销售属性 */
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+        return attrService.baseSaleAttrList();
     }
 
     /*添加商品销售属性*/

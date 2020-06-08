@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog1;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog2;
 import indi.faniche.anonyshop.bean.catalog.PmsBaseCatalog3;
+import indi.faniche.anonyshop.bean.catalog.PmsBrand;
 import indi.faniche.anonyshop.service.CatalogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,12 @@ public class CatalogController {
     public List<PmsBaseCatalog3> getCatalog3(String catalog2Id){
         return catalogService.getCatalog3(catalog2Id);
     }
+
+    @RequestMapping("getBrandList")
+    @ResponseBody
+    public List<PmsBrand> getBrandList(String catalog3Id){
+        return catalogService.getBrandList(catalog3Id);
+    }
+
 
 }

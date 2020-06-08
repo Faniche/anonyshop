@@ -7,7 +7,7 @@ $("#catalog1").click(function () {
         $('#catalog1').attr("isnull", "false")
         var seleceItem;
         $.ajax({
-            url: "http://seller.anonyshop.tech/catalog/getCatalog1",
+            url: "http://manage.anonyshop.tech/catalog/getCatalog1",
             type: "get",
             success: function (data) {
                 var length = data.length;
@@ -25,7 +25,7 @@ $("#catalog1").click(function () {
 $("body").on("click", ".catalog1Item", function () {
     var seleceItem;
     $.ajax({
-        url: "http://seller.anonyshop.tech/catalog/getCatalog2",
+        url: "http://manage.anonyshop.tech/catalog/getCatalog2",
         type: "post",
         data: {"catalog1Id": $(this).val()},
         success: function (data) {
@@ -45,7 +45,7 @@ $("body").on("click", ".catalog1Item", function () {
 $("body").on("click", ".catalog2Item", function () {
     var seleceItem;
     $.ajax({
-        url: "http://seller.anonyshop.tech/catalog/getCatalog3",
+        url: "http://manage.anonyshop.tech/catalog/getCatalog3",
         type: "post",
         data: {"catalog2Id": $(this).val()},
         success: function (data) {

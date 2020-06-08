@@ -61,7 +61,7 @@ public class ImgController {
     public String skuGetSpuImgs(Model model, String productId) {
         List<PmsProductImage> pmsProductImages = getImgListBySpuId(productId);
         model.addAttribute("pmsProductImages", pmsProductImages);
-        return "skumanage::showSpuImgArea";
+        return "seller/skumanage::showSpuImgArea";
     }
 
 }

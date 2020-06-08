@@ -8,6 +8,7 @@ package indi.faniche.anonyshop.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 //import com.github.pagehelper.PageHelper;
+import indi.faniche.anonyshop.annotations.LoginRequired;
 import indi.faniche.anonyshop.bean.baseattr.PmsBaseSaleAttr;
 import indi.faniche.anonyshop.bean.spu.PmsProductImage;
 import indi.faniche.anonyshop.bean.spu.PmsProductInfo;
@@ -17,12 +18,14 @@ import indi.faniche.anonyshop.service.AttrService;
 import indi.faniche.anonyshop.service.ProductImageService;
 import indi.faniche.anonyshop.service.SpuService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +45,15 @@ public class SpuController {
     ProductImageService productImageService;
 
     @RequestMapping
-    public String toSpuManage(){
-        return "spumanage";
+    @LoginRequired
+    public String toSpuManage(HttpServletRequest request, Model model){
+        String username = (String) request.getAttribute("username");
+        String userId = (String) request.getAttribute("userId");
+        String roleId = (String) request.getAttribute("roleId");
+        model.addAttribute("username", username);
+        model.addAttribute("userId", userId);
+        model.addAttribute("roleId", roleId);
+        return "admin/spumanage";
     }
 
     @RequestMapping("getSpuList")

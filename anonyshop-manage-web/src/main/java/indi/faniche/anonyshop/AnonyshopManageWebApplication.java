@@ -1,4 +1,4 @@
-package indi.faniche.anonyshop.manage;
+package indi.faniche.anonyshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -10,7 +10,7 @@
     <artifactId>anonyshop-manage-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>anonyshop-manage-web</name>
-    <description>卖家后台管理系统</description>
+    <description>Web application of manage</description>
 
     <properties>
         <java.version>1.8</java.version>

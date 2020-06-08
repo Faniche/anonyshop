@@ -3,7 +3,7 @@ $("body").on("click", ".catalog3Item", function () {
     catalog3IsChecked = true
     // 获取SPU列表
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuList",
+        url: "http://manage.anonyshop.tech/spu/getSpuList",
         type: "post",
         data: {"catalog3Id": $("#catalog3").val()},
         success: function (data) {
@@ -12,7 +12,7 @@ $("body").on("click", ".catalog3Item", function () {
     })
     // 查询当前分类平台属性及平台属性值类表
     $.ajax({
-        url: "http://seller.anonyshop.tech/attr/getAttrInfoList",
+        url: "http://manage.anonyshop.tech/attr/getAttrInfoList",
         type: "post",
         data: {"catalog3Id": $("#catalog3").val()},
         success: function (data) {
@@ -47,16 +47,53 @@ $("body").on("click", ".catalog3Item", function () {
     })
 });
 
+function toPage(page){
+    $("#div-skulist").load("http://manage.anonyshop.tech/sku/list", {"pageNum":page})
+}
+
+$("body").on("click", ".editSku", function () {
+    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
+    var skuName = $(this).parentsUntil("tr").siblings().eq(2).text();
+    var price = $(this).parentsUntil("tr").siblings().eq(3).text();
+    var quantity = $(this).parentsUntil("tr").siblings().eq(4).text();
+    var skuDesc = $(this).parentsUntil("tr").siblings().eq(5).text();
+    $.ajax({
+        url: "http://manage.anonyshop.tech/sku/editSkuInfo",
+        type: "post",
+        data: {id:id, skuName:skuName, price:price, quantity:quantity, skuDesc:skuDesc},
+        success: function (data) {
+            alert(data)
+        }
+    })
+})
+
+$("body").on("click", ".delSku", function () {
+    var id = $(this).parentsUntil("tr").siblings().eq(1).text();
+    var page = $("#pageNum").val();
+    $("#div-skulist").load("http://manage.anonyshop.tech/sku/delSkuInfo", {skuId:id, pageNum:page})
+})
+
 $("body").on("click", ".baseAttrItem", function () {
     $(this).parentsUntil("td").siblings().eq(0).prop("disabled", false)
 })
 
+$("#nav-skulist").click(function () {
+    $("#div-skulist").show();
+    $("#div-addsku").hide();
+})
+
+$("#nav-addSku").click(function () {
+    $("#div-skulist").hide();
+    $("#div-addsku").show();
+})
+
 /* 点击添加SKU按钮 */
 $("body").on("click", ".addSku", function () {
-    $("#showSpuImgList").load("http://seller.anonyshop.tech/img/skuGetSpuImgs", {productId: $(this).parentsUntil("tr").siblings().eq(1).text()})
+    $("#showSpuImgList").load("http://manage.anonyshop.tech/img/skuGetSpuImgs", {productId: $(this).parentsUntil("tr").siblings().eq(1).text()})
     $("#saleAttrRow").remove()
     $("#postProductId").val($(this).parentsUntil("tr").siblings().eq(1).text())
     $("#postCatalog3Id").val($("#catalog3").val())
+    $("#in-hide-brand").val($(this).siblings().eq(0).val())
     // productName 在SKU的地方显示
     var productName = $(this).parentsUntil("tr").siblings().eq(2).text()
     // disable 的input不会提交, 设置spu名称
@@ -64,7 +101,7 @@ $("body").on("click", ".addSku", function () {
     // 查询spu销售属性列表
     var spuIndex = $(this).parentsUntil("tr").siblings().eq(0).text() - 1
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuSaleAttrNoNull",
+        url: "http://manage.anonyshop.tech/spu/getSpuSaleAttrNoNull",
         type: "post",
         data: {"spuIndex": spuIndex},
         success: function (data) {
@@ -137,15 +174,14 @@ $("body").on("click", ".img-setdefault", function () {
 // 点击添加按钮，（最后的提交）
 $("#saveSku").click(function () {
     $.ajax({
-        //几个参数需要注意一下
-        type: "POST",//方法类型
-        dataType: "json",//预期服务器返回的数据类型
-        url: "http://seller.anonyshop.tech/sku/saveSkuInfo",//url
+        type: "POST",
+        dataType: "json",
+        url: "http://manage.anonyshop.tech/sku/saveSkuInfo",
         data: $('#form-addSku').serialize(),
         success: function (result) {
             alert(result.msg)
             if (result.resultCode == 200) {
-                alert("SUCCESS");
+                alert("添加成功!");
             }
         },
         error: function () {
@@ -168,6 +204,7 @@ function newSpuInfoTabRows(data) {
             "    <td style=\"padding: 6px;\">" + data[i].productName + "</td>\n" +
             "    <td style=\"padding: 6px;\">" + data[i].description + "</td>\n" +
             "    <td style=\"padding: 1px;\">" +
+            "      <input type='hidden' value='" + data[i].brandId +"'/>" +
             "      <button class=\"btn btn-primary addSku\" type=\"button\"><i class=\"la la-plus\"></i>添加</button>" +
             "   </td>\n" +
             "</tr>"

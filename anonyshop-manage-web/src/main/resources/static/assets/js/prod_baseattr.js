@@ -2,7 +2,7 @@
 $("body").on("click", ".catalog3Item", function () {
     var tableItem;
     $.ajax({
-        url: "http://seller.anonyshop.tech/attr/getAttrInfoList",
+        url: "http://manage.anonyshop.tech/attr/getAttrInfoList",
         type: "post",
         data: {"catalog3Id": $(this).val()},
         success: function (data) {
@@ -25,7 +25,7 @@ $("#addAttrBtn").click(function () {
             var attrValueListStr = $("#inputAttrValue").val();
             var tableItem;
             $.ajax({
-                url: "http://seller.anonyshop.tech/attr/addAttrInfo",
+                url: "http://manage.anonyshop.tech/attr/addAttrInfo",
                 type: "post",
                 data: {
                     "attrName": $("#inputAttrName").val(),
@@ -52,7 +52,7 @@ $("body").on("click", ".deleteAttr", function () {
         var attrName = $(this).parentsUntil("tr").siblings().eq(2).text()
         var catalog3Id = $("#catalog3").val()
         $.ajax({
-            url: "http://seller.anonyshop.tech/attr/deleteAttrInfo",
+            url: "http://manage.anonyshop.tech/attr/deleteAttrInfo",
             type: "post",
             data: {"id": id, "attrName": attrName, "catalog3Id": catalog3Id},
             success: function (data) {
@@ -70,7 +70,7 @@ $("body").on("click", ".editAttr", function () {
         var catalog3Id = $("#catalog3").val()
         var attrValueListStr = $(this).parentsUntil("tr").siblings().eq(3).text()
         $.ajax({
-            url: "http://seller.anonyshop.tech/attr/editAttrInfo",
+            url: "http://manage.anonyshop.tech/attr/editAttrInfo",
             type: "post",
             data: {"id": id, "attrName": attrName, "catalog3Id": catalog3Id, "attrValueListStr": attrValueListStr},
             success: function (data) {

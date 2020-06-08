@@ -1,7 +1,7 @@
 /* 获取当前分类下的SPU列表展示 */
 $("body").on("click", ".catalog3Item", function () {
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuList",
+        url: "http://manage.anonyshop.tech/spu/getSpuList",
         type: "post",
         data: {"catalog3Id": $("#catalog3").val()},
         success: function (data) {
@@ -21,7 +21,7 @@ $("#btn-addSpuSaleAttr").click(function () {
         $("#addSpuInfoForm").submit();
         var tabItem
         $.ajax({
-            url: "http://seller.anonyshop.tech/spu/addSpuInfo",
+            url: "http://manage.anonyshop.tech/spu/addSpuInfo",
             type: "post",
             data: {"productName": productName, "description": description, "catalog3Id": catalog3Id},
             success: function (productInfo) {
@@ -29,7 +29,7 @@ $("#btn-addSpuSaleAttr").click(function () {
                 $("#tab-addSaleAttr").toggle()
                 $("#head-addSaleAttr").text(productName)
                 $.ajax({
-                    url: "http://seller.anonyshop.tech/attr/baseSaleAttrList",
+                    url: "http://manage.anonyshop.tech/attr/baseSaleAttrList",
                     type: "get",
                     success: function (baseSaleAttrList) {
                         for (var i = 0; i < baseSaleAttrList.length; i++) {
@@ -56,7 +56,7 @@ $("#btn-addSpuSaleAttr").click(function () {
 // 图片上传
 $("#in-spuImg").change(function () {
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/imgUpload",
+        url: "http://manage.anonyshop.tech/img/imgUpload",
         type: "post",
         cache: false,
         data: new FormData($('#form-spuUploadImg')[0]),
@@ -77,7 +77,7 @@ $("body").on("click", ".addSaleAttr", function () {
     var saleAttrName = $(this).parentsUntil("tr").siblings().eq(2).text()
     var spuSaleAttrValueListStr = $(this).parentsUntil("tr").siblings().eq(3).text()
     $.ajax({
-        url: "http://seller.anonyshop.tech/attr/addProdSaleAttr",
+        url: "http://manage.anonyshop.tech/attr/addProdSaleAttr",
         type: "post",
         data: {"saleAttrId": saleAttrId, "productId": productId, "saleAttrName": saleAttrName, "spuSaleAttrValueListStr": spuSaleAttrValueListStr},
         success: function (data) {
@@ -93,7 +93,7 @@ $("body").on("click", ".deleteSaleAttr", function () {
     var saleAttrName = $(this).parentsUntil("tr").siblings().eq(2).text()
     var spuSaleAttrValueListStr = $(this).parentsUntil("tr").siblings().eq(3).text()
     $.ajax({
-        url: "http://seller.anonyshop.tech/attr/deleteSaleAttr",
+        url: "http://manage.anonyshop.tech/attr/deleteSaleAttr",
         type: "post",
         data: {"saleAttrId": saleAttrId, "productId": productId, "saleAttrName": saleAttrName, "spuSaleAttrValueListStr": spuSaleAttrValueListStr},
         success: function (data) {}
@@ -108,7 +108,7 @@ $("#finAddSaleAttr").click(function () {
     $("#tab-addSaleAttr").toggle()
     var tableItem;
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuList",
+        url: "http://manage.anonyshop.tech/spu/getSpuList",
         type: "post",
         data: {"catalog3Id": $("#catalog3").val()},
         success: function (data) {
@@ -128,7 +128,7 @@ $("body").on("click", ".editSpuInfo", function () {
     var productName = $(this).parentsUntil("tr").siblings().eq(2).text();
     var description = $(this).parentsUntil("tr").siblings().eq(3).text();
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/editSpuInfo",
+        url: "http://manage.anonyshop.tech/spu/editSpuInfo",
         type: "post",
         data: {"id": id, "productName": productName, "description": description},
         success: function (data) {
@@ -142,7 +142,7 @@ $("body").on("click", ".deleteSpuInfo", function () {
     var id = $(this).parentsUntil("tr").siblings().eq(1).text();
     var catalog3Id = $("#catalog3").val()
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/deleteSpuInfo",
+        url: "http://manage.anonyshop.tech/spu/deleteSpuInfo",
         type: "post",
         data: {"id": id, "catalog3Id": catalog3Id},
         success: function (data) {
@@ -159,7 +159,7 @@ $("body").on("click", ".btn-showEditSaleAttr", function () {
     $("#head-editSaleAttr").text(productName)
     var spuIndex = $(this).parentsUntil("tr").siblings().eq(0).text() - 1
     $.ajax({
-        url: "http://seller.anonyshop.tech/spu/getSpuSaleAttr",
+        url: "http://manage.anonyshop.tech/spu/getSpuSaleAttr",
         type: "post",
         data: {"spuIndex": spuIndex},
         success: function (data) {
@@ -175,7 +175,7 @@ $("body").on("click", ".editSaleAttr", function () {
     var saleAttrName = $(this).parentsUntil("tr").siblings().eq(2).text()
     var spuSaleAttrValueListStr = $(this).parentsUntil("tr").siblings().eq(3).text()
     $.ajax({
-        url: "http://seller.anonyshop.tech/attr/addProdSaleAttr",
+        url: "http://manage.anonyshop.tech/attr/addProdSaleAttr",
         type: "post",
         data: {"saleAttrId": saleAttrId, "productId": productId, "saleAttrName": saleAttrName, "spuSaleAttrValueListStr": spuSaleAttrValueListStr},
         success: function (data) {
