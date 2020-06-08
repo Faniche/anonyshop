@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Payment - Anonyshop</title>
+    <meta name="description" content="用户系统">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="../assets/css/catalogsearch.css">
+    <link rel="stylesheet" href="../assets/css/smoothproducts.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="http://anonyshop.tech/index">Anonyshop</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <form class="form-inline" style="margin: 0px 0px 0px 80px;" action="http://search.anonyshop.tech/list" method="get">
+                    <div class="form-group"><input class="form-control" type="search" name="keys"><button class="btn btn-info" type="submit" style="padding: 6px 20px;"><i class="fa fa-search" style="margin: 0px;"></i></button></div>
+                </form>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://anonyshop.tech/index" style="font-size: 15px;">首页</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://cart.anonyshop.tech" style="font-size: 15px;">购物车</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;"><a class="nav-link" href="http://search.anonyshop.tech" style="font-size: 15px;">商品分类</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username==null}"><a class="nav-link" href="http://passport.anonyshop.tech" style="font-size: 15px;">登录</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username!=null}"><a class="nav-link" href="http://manage.anonyshop.tech" style="font-size: 15px;">个人中心</a></li>
+                    <li class="nav-item" role="presentation" style="padding: 0px 15px 0px 0px;" th:if="${username!=null}"><a class="nav-link" th:href="'http://passport.anonyshop.tech/logout?userId='+${userId}" style="font-size: 15px;">退出</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <main class="page payment-page">
+        <section class="clean-block payment-form dark">
+            <div class="container">
+                <div class="block-heading" style="padding: 40px 0px 0px;">
+                    <h2 class="text-info"></h2>
+                </div>
+                <form>
+                    <div class="products">
+                        <h3 class="title">订单详情</h3>
+                        <div class="item">
+                            <p class="item-name" th:text="${result}">支付成功！</p>
+                        </div>
+                    </div>
+                    <div class="card-details order-note">
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <div class="form-group"><button class="btn btn-primary btn-block" id="ret-index" type="buttion">返回首页</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>开始</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/index">首页</a></li>
+                        <li><a href="http://user.anonyshop.tech/signup">注册</a></li>
+                        <li><a href="http://user.anonyshop.tech/#">下载</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>关于我们</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/info">平台信息</a></li>
+                        <li><a href="http://anonyshop.tech/contact">联系我们</a></li>
+                        <li><a href="http://anonyshop.tech/reviews">评论</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>支持</h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/faq">FAQ</a></li>
+                        <li><a href="http://anonyshop.tech/support">帮助中心</a></li>
+                        <li><a href="http://anonyshop.tech/forum">论坛</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5><strong>法律</strong></h5>
+                    <ul>
+                        <li><a href="http://anonyshop.tech/termsofservice">服务条款</a></li>
+                        <li><a href="http://anonyshop.tech/termsofusage">使用条款</a></li>
+                        <li><a href="http://anonyshop.tech/privacypolicy">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>Copyright © Anonyshop 2020</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/smoothproducts.min.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/baguetteBox.min.js"></script>
+    <script src="../assets/js/payment/payment.js"></script>
+</body>
+
+</html>
